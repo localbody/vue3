@@ -1,14 +1,12 @@
 <template>
     <form @submit.prevent>
         <input
-            v-bind:value="title"
-            @input="title = $event.target.value"
+            v-model="post.title"
             type="text"
             placeholder="Название"
         >
         <input
-            v-bind:value="body"
-            @input="body = $event.target.value"
+            v-model="post.body"
             type="text"
             placeholder="Описание"
         >
@@ -21,6 +19,24 @@
 
 <script>
 export default {
+    data() {
+        return {
+            post: {
+                title: '',
+                body: '',
+            }
+        }
+    },
+    methods: {
+        createPost() {
+            this.post.id = Date.now();
+            this.$emit('create', this.post)
+            this.post = {
+                title: '',
+                body: '',
+            }
+        }
+    }
 
 }
 </script>
