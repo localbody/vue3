@@ -1,23 +1,22 @@
 <template>
+    <h3>Новый пост</h3>
     <form @submit.prevent>
-        <input
+        <my-input
             v-model="post.title"
-            type="text"
             placeholder="Название"
-        >
-        <input
+        />
+        <my-input
             v-model="post.body"
-            type="text"
             placeholder="Описание"
-        >
-        <button
+        />
+        <my-button
             @click="createPost"
-            class="btn"
-        >Создать</button>
+        >Создать</my-button>
     </form>
 </template>
 
 <script>
+
 export default {
     data() {
         return {
@@ -36,25 +35,18 @@ export default {
                 body: '',
             }
         }
-    }
+    },
 
 }
 </script>
 
 <style scoped>
+
     form {
+        margin-top: 2em;
         display: grid;
         grid-template-rows: repeat(3, 2em);
         gap: 1em;
-        margin-bottom: 2em;
     }
 
-    .btn {
-        justify-self: start;
-        padding: 0 2em;
-    }
-
-    input {
-        padding: 0 1em;
-    }
 </style>

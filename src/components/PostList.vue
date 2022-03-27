@@ -1,18 +1,29 @@
 <template>
-    <div class="post" v-for="post in posts">
-        <div>
-            <strong>Название: </strong>
-            <span>{{ post.title }}</span>
-        </div>
-        <div>
-            <strong>Содержание: </strong>
-            <span>{{ post.body }}</span>
-        </div>
+    <div v-if="posts.length > 0">
+        <h3>Список постов</h3>
+        <transition-group name="posts-list">
+            <post-item
+                v-for="post in posts"
+                :post="post"
+                :key="post.id"
+                @remove="$emit('remove', post)"
+            />
+        </transition-group>
     </div>
+    <h2 v-else>
+        Список постов пуст
+    </h2>
 </template>
 
 <script>
+
+import PostItem from '@/components/PostItem.vue';
+
 export default {
+
+    components: {
+        PostItem,
+    },
     props: {
         posts: {
             type: Array,
@@ -24,9 +35,20 @@ export default {
 </script>
 
 <style scoped>
-    .post {
-        padding: 15px;
-        border: 1px solid forestgreen;
-        margin-bottom: 5px;
+    .posts-list-item {
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .posts-list-enter-active,
+    .posts-list-leave-active {
+        transition: all 0.3s ease;
+    }
+    .posts-list-enter-from,
+    .posts-list-leave-to {
+        opacity: 0;
+        transform: translateX(130px);
+    }
+    .posts-list-move {
+        transition: transform 0.8s ease;
     }
 </style>
